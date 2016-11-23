@@ -7,3 +7,9 @@
 /build
 /captures
 /okhttp3*
+.idea/*
+*.iml
+*.xml
+.idea
+
+
