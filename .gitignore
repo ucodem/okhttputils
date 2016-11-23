@@ -11,5 +11,12 @@
 *.iml
 *.xml
 .idea
+.idea/.name
+.idea/compiler.xml
+.idea/gradle.xml
+.idea/misc.xml
+.idea/modules.xml
+sample-okhttp/sample-okhttp.iml
+
 
 
