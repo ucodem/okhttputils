@@ -140,6 +140,7 @@ public class OkHttpUtils
 
                     if (!finalCallback.validateReponse(response, id))
                     {
+
                         sendFailResultCallback(call, new IOException("request failed , reponse's code is : " + response.code()), finalCallback, id);
                         return;
                     }
