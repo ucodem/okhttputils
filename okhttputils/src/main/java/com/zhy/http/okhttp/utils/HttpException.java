@@ -11,10 +11,18 @@ package com.zhy.http.okhttp.utils;
  */
 public class HttpException extends Exception {
 
-    private int code = -100;
+    private int code;
 
     public HttpException(int code, String message) {
         super(message);
+        this.code = code;
+    }
+
+    public int getCode() {
+        return code;
+    }
+
+    public void setCode(int code) {
         this.code = code;
     }
 }
