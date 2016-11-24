@@ -1,7 +1,5 @@
 package com.zhy.http.okhttp;
 
-import android.util.Log;
-
 import com.zhy.http.okhttp.builder.GetBuilder;
 import com.zhy.http.okhttp.builder.HeadBuilder;
 import com.zhy.http.okhttp.builder.OtherRequestBuilder;
@@ -113,7 +111,6 @@ public class OkHttpUtils {
             @Override
             public void onResponse(final Call call, final Response response) {
                 try {
-                    Log.w("OkHttpUtils", "onResponse.body:" + response.body().string());
                     if (call.isCanceled()) {
                         sendFailResultCallback(call, new HttpException(-1, "Canceled!"), finalCallback, id);
                         return;
