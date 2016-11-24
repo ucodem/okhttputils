@@ -10,6 +10,7 @@ import com.zhy.http.okhttp.builder.PostFormBuilder;
 import com.zhy.http.okhttp.builder.PostStringBuilder;
 import com.zhy.http.okhttp.callback.Callback;
 import com.zhy.http.okhttp.request.RequestCall;
+import com.zhy.http.okhttp.utils.HttpException;
 import com.zhy.http.okhttp.utils.Platform;
 
 import java.io.IOException;
@@ -104,7 +105,8 @@ public class OkHttpUtils {
         requestCall.getCall().enqueue(new okhttp3.Callback() {
             @Override
             public void onFailure(Call call, final IOException e) {
-                sendFailResultCallback(call, e, finalCallback, id);
+
+                sendFailResultCallback(call, new HttpException(0, e.getMessage()), finalCallback, id);
             }
 
             @Override
@@ -112,19 +114,19 @@ public class OkHttpUtils {
                 try {
                     Log.w("OkHttpUtils", "onResponse.body:" + response.body().string());
                     if (call.isCanceled()) {
-                        sendFailResultCallback(call, new IOException("Canceled!"), finalCallback, id);
+                        sendFailResultCallback(call, new HttpException(-1, "Canceled!"), finalCallback, id);
                         return;
                     }
 
                     if (!finalCallback.validateReponse(response, id)) {
-                        sendFailResultCallback(call, new IOException("request failed , reponse's code is : " + response.code()), finalCallback, id);
+                        sendFailResultCallback(call, new HttpException(response.code(), response.body().string()), finalCallback, id);
                         return;
                     }
 
                     Object o = finalCallback.parseNetworkResponse(response, id);
                     sendSuccessResultCallback(o, finalCallback, id);
                 } catch (Exception e) {
-                    sendFailResultCallback(call, e, finalCallback, id);
+                    sendFailResultCallback(call, new HttpException(-2, "Canceled!"), finalCallback, id);
                 } finally {
                     if (response.body() != null)
                         response.body().close();
