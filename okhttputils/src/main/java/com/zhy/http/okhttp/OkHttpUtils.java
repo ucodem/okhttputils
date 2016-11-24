@@ -30,6 +30,7 @@ public class OkHttpUtils {
     private Platform mPlatform;
 
     public OkHttpUtils(OkHttpClient okHttpClient) {
+
         if (okHttpClient == null) {
             mOkHttpClient = new OkHttpClient();
         } else {
