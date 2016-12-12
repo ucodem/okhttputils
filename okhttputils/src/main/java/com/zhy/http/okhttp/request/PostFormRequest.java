@@ -110,7 +110,7 @@ public class PostFormRequest extends OkHttpRequest
         {
             for (String key : params.keySet())
             {
-                builder.addPart(Headers.of("Content-Disposition", "form-data; name=\"" + key + "\""),
+                builder.addPart(Headers.of("Content-Disposition", "form-data; name=\"" + key.replaceAll("\\[\\d+\\]", "[]") + "\""),
                         RequestBody.create(null, params.get(key)));
             }
         }
